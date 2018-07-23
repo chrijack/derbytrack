@@ -7,6 +7,7 @@ import os
 from subprocess import Popen
 import pygame.display
 import pygame.event
+
 #Set up confirguration
 isoVal = 0
 expmode = 'sports'
@@ -17,10 +18,12 @@ playbackframerate = 15
 theoplaytime = totalseconds * thisframerate / playbackframerate
 firstsleep = theoplaytime + 1
 secsleep = firstsleep + 5
+
 #set blank screen behind everything
 pygame.display.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen.fill((0, 0, 0))
+
 #set up GPIO using BCM Numbering
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(5, GPIO.IN)
@@ -34,6 +37,7 @@ camera.iso = isoVal
 stream = picamera.PiCameraCircularIO(camera, seconds=7)
 camera.start_recording(stream, format='h264', intra_period = 10)
 videocount = 1
+
 #set up directory for files
 dirpref = time.strftime("%b%d%y")
 directory = dirpref + "/"
@@ -83,4 +87,3 @@ finally:
     camera.stop_preview()
     camera.close()
     sys.exit()
-****CODE END****
