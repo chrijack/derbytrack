@@ -26,7 +26,7 @@ screen.fill((0, 0, 0))
 
 #set up GPIO using BCM Numbering
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.IN)
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 camera = picamera.PiCamera()
 camera.vflip = True
 camera.hflip = True
@@ -62,7 +62,7 @@ try:
                 pygame.quit()
                 sys.exit()
         camera.wait_recording(0.2)
-        if GPIO.input(5):
+        if GPIO.input(5) == False:
             camera.wait_recording(postseconds)
             filemp4 = directory + "race" + str(videocount) + ".mp4"
             filename = directory + "race" + str(videocount) + ".h264"
